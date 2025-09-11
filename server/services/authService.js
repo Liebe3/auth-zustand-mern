@@ -1,7 +1,27 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const { findByEmail, createUser } = require("../repositories/userRepository");
+const {
+  findByEmail,
+  findById,
+  createUser,
+} = require("../repositories/userRepository");
+
+const generateTokens = (userId) => {
+  const accessToken = jwt.sign(
+    { id: userId, type: "access" },
+    process.env.JWT_SECRET,
+    { expiresIn: "15m" }
+  );
+
+  const refreshToken = jwt.sign(
+    { id: userId, type: "refresh" },
+    process.env.JWT_REFRESH_SECRET,
+    { expiresIn: "30d" }
+  );
+
+  return { accessToken, refreshToken };
+};
 
 exports.registerUser = async ({
   firstName,
@@ -9,6 +29,7 @@ exports.registerUser = async ({
   email,
   password,
   confirmPassword,
+  role,
 }) => {
   const existingUser = await findByEmail(email);
 
@@ -26,25 +47,57 @@ exports.registerUser = async ({
     lastName,
     email,
     password: hashedPassword,
+    role,
   });
   return newUser;
 };
 
 exports.loginUser = async ({ email, password }) => {
-  const user = await findByEmail(email);
+  try {
+    const user = await findByEmail(email);
 
-  if (!user) {
-    throw new Error("Invalid credentials");
+    if (!user) {
+      throw new Error("Invalid credentials");
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      throw new Error("Invalid credentials");
+    }
+
+    const { accessToken, refreshToken } = generateTokens(user._id);
+
+    return { user, accessToken, refreshToken };
+  } catch (error) {
+    throw error;
   }
+};
 
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) {
-    throw new Error("Invalid credentials");
+exports.refreshAccessToken = async (refreshToken) => {
+  try {
+    if (!refreshToken) {
+      throw new Error("Refresh token not fouund");
+    }
+
+    const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+
+    if (decoded.type !== "refresh") {
+      throw new Error("Invalid token type");
+    }
+
+    const user = await findById(decoded.id);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const accessToken = jwt.sign(
+      { id: user._id, type: "access" },
+      process.env.JWT_SECRET,
+      { expiresIn: "15m" }
+    );
+
+    return { user, accessToken };
+  } catch (error) {
+    throw error;
   }
-
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: "1d",
-  });
-
-  return { user, token };
 };
