@@ -28,6 +28,7 @@ const LoginPage = () => {
     event.preventDefault();
     await login(formData);
   };
+
   return (
     <Container component="main" maxWidth="xs">
       <Box
