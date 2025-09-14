@@ -7,15 +7,15 @@ const {
   createUser,
 } = require("../repositories/userRepository");
 
-const generateTokens = (userId) => {
+const generateTokens = (user) => {
   const accessToken = jwt.sign(
-    { id: userId, type: "access" },
+    { id: user._id, role: user.role, type: "access" },
     process.env.JWT_SECRET,
     { expiresIn: "15m" }
   );
 
   const refreshToken = jwt.sign(
-    { id: userId, type: "refresh" },
+    { id: user._id, role: user.role, type: "refresh" },
     process.env.JWT_REFRESH_SECRET,
     { expiresIn: "30d" }
   );
@@ -65,7 +65,7 @@ exports.loginUser = async ({ email, password }) => {
       throw new Error("Invalid credentials");
     }
 
-    const { accessToken, refreshToken } = generateTokens(user._id);
+    const { accessToken, refreshToken } = generateTokens(user);
 
     return { user, accessToken, refreshToken };
   } catch (error) {
