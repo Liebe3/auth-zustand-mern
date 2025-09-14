@@ -3,6 +3,7 @@ import { loginApi, logoutApi, refreshApi, registerApi } from "../Api/authApi";
 
 const useAuthStore = create((set) => ({
   user: null,
+  role: null,
   accessToken: null,
   isLoading: false,
   error: null,
@@ -13,6 +14,7 @@ const useAuthStore = create((set) => ({
       const response = await loginApi(credentials);
       set({
         user: response.data.user,
+        // role: response.data.role,
         accessToken: response.data.accessToken,
         isLoading: false,
       });
@@ -28,7 +30,11 @@ const useAuthStore = create((set) => ({
     set({ isLoading: true, error: null });
     try {
       const response = await registerApi(data);
-      set({ user: response.data.user, isLoading: false });
+      set({
+        user: response.data.user,
+        role: response.data.role,
+        isLoading: false,
+      });
     } catch (error) {
       set({
         error: error.response?.data?.message || "Registration failed",
@@ -40,7 +46,11 @@ const useAuthStore = create((set) => ({
   refresh: async () => {
     try {
       const response = await refreshApi();
-      set({ user: response.data.user, accessToken: response.data.accessToken });
+      set({
+        user: response.data.user,
+        role: response.data.role,
+        accessToken: response.data.accessToken,
+      });
     } catch (error) {
       set({ error: null });
     }
@@ -48,7 +58,7 @@ const useAuthStore = create((set) => ({
 
   logout: async () => {
     await logoutApi();
-    set({ error: null });
+    set({ error: null, role: null, accessToken: null, user: null });
   },
 }));
 
