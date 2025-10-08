@@ -41,3 +41,7 @@ This project is an authentication system built with the **MERN stack** (MongoDB,
 ```bash
 git clone https://github.com/Liebe3/auth-zustand-mern.git
 cd auth-zustand-mern
+
+cd server
+npm install
+
