@@ -65,21 +65,22 @@ npm start
 ```bash
 auth-zustand-mern/
 │
-├── client/                 # React frontend
+├── client/              
 │   ├── src/
-│   │   ├── api/            # Axios requests
-│   │   ├── components/     # Reusable UI components
-│   │   ├── pages/          # Login, Register, Dashboard
-│   │   ├── store/          # Zustand store
+│   │   ├── api/           
+│   │   ├── components/    
+│   │   ├── pages/         
+│   │   ├── store/          
 │   │   └── App.js
 │   └── package.json
 │
-├── server/                 # Node.js backend
-│   ├── controllers/        # Auth logic
-│   ├── models/             # Mongoose models
-│   ├── routes/             # API routes
-│   ├── middleware/         # JWT auth middleware
+├── server/                
+│   ├── controllers/      
+│   ├── models/             
+│   ├── routes/           
+│   ├── middleware/        
 │   ├── server.js
+│   └── services/
 │   └── package.json
 │
 └── README.md
