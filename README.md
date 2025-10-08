@@ -59,4 +59,26 @@ npm run dev
 cd ../client
 npm start
 
+auth-zustand-mern/
+│
+├── client/                 # React frontend
+│   ├── src/
+│   │   ├── api/            # Axios requests
+│   │   ├── components/     # Reusable UI components
+│   │   ├── pages/          # Login, Register, Dashboard
+│   │   ├── store/          # Zustand store
+│   │   └── App.js
+│   └── package.json
+│
+├── server/                 # Node.js backend
+│   ├── controllers/        # Auth logic
+│   ├── models/             # Mongoose models
+│   ├── routes/             # API routes
+│   ├── middleware/         # JWT auth middleware
+│   ├── server.js
+│   └── package.json
+│
+└── README.md
+
+
 
