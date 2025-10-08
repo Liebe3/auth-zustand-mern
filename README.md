@@ -59,6 +59,9 @@ npm run dev
 cd ../client
 npm start
 
+```
+
+## ⚙️ Folder Structure
 auth-zustand-mern/
 │
 ├── client/                 # React frontend
