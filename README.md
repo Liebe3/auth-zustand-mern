@@ -45,3 +45,7 @@ cd auth-zustand-mern
 cd server
 npm install
 
+
+cd ../client
+npm install
+
