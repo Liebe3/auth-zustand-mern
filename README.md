@@ -56,3 +56,7 @@ JWT_SECRET=your_secret_key
 cd server
 npm run dev
 
+cd ../client
+npm start
+
+
