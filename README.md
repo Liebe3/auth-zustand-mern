@@ -61,7 +61,7 @@ npm start
 
 ```
 
-## ⚙️ Folder Structure
+##  Folder Structure
 auth-zustand-mern/
 │
 ├── client/                 # React frontend
@@ -82,6 +82,7 @@ auth-zustand-mern/
 │   └── package.json
 │
 └── README.md
+
 
 
 
