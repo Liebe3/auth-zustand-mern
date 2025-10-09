@@ -27,7 +27,7 @@ This project is an authentication system built with the **MERN stack** (MongoDB,
 - React Router DOM
 - MUI - Layout
 
-**🖧 Backend**  
+### 🖧 Backend
 - Node.js  
 - Express  
 - MongoDB + Mongoose  
