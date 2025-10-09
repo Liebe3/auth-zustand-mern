@@ -15,6 +15,7 @@ This project is an authentication system built with the **MERN stack** (MongoDB,
 - MongoDB with Mongoose for database
 - Error handling and validation
 - Logout & persistent auth state
+- Access and Refresh token
 
 ---
 
