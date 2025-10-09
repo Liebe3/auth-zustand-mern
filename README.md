@@ -24,7 +24,8 @@ This project is an authentication system built with the **MERN stack** (MongoDB,
 **Frontend**  
 - React  
 - Zustand (state management)   
-- React Router DOM  
+- React Router DOM
+- MUI - Layout
 
 **Backend**  
 - Node.js  
